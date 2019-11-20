@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .acti {
+            color: red
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div id="app" class="acti">
+    <h1>
+        {{firstName+' '+lastName}}
+    </h1>
+
+    <h2>{{getAllName()}}</h2>
+
+    <h3>{{allName}}</h3>
+    <ol>
+        <li v-for="(item,index) in books">
+            <button :class="{acti:activity(index)}" @click="change(index)">
+                {{index+"----"}}{{item.name}}
+            </button>
+        </li>
+    </ol>
+    <h4 style="color: red">书的总价为：{{totalPrice}}</h4>
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            firstName: '张',
+            lastName: "三丰",
+            books: [
+                {id: 1, name: '数据库从入门到放弃', price: 101},
+                {id: 2, name: 'JAVA从入门到放弃', price: 100},
+                {id: 3, name: 'Python从入门到放弃', price: 201},
+                {id: 4, name: 'C#从入门到放弃', price: 198},
+                {id: 5, name: 'PHP从入门到放弃', price: 69}
+            ]
+
+        },
+        computed: {
+            allName: function () {
+                console.log("我执行了allName");
+                return this.firstName + this.lastName;
+            },
+            totalPrice: function () {
+                let total = 0;
+                for (let index = 0; index < this.books.length; index++) {
+                    total += this.books[index].price
+
+                }
+
+                return total;
+            }
+        },
+        methods: {
+            getAllName() {
+                console.log("我执行了getAllName");
+
+                return this.firstName + this.lastName;
+            },
+            change: function (i) {
+
+                this.activity = !this.activity
+            },
+            activity: function (d) {
+                return d;
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

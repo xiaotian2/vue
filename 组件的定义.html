@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的定义</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <a href="" @click.prevent="flag=true">登录</a>
+    <a href="" @click.prevent="flag=false">注册</a>
+
+    <login v-if="flag"></login>
+
+    <reges v-else="flag"></reges>
+
+
+</div>
+<template id="tmel1">
+    <div>
+        <h1>定义全局组件</h1>
+        <h2>{{ da }}</h2>
+    </div>
+
+
+</template>
+
+<template id="log">
+    <h1>登录</h1>
+</template>
+
+<template id="reg">
+    <h1>注册</h1>
+</template>
+
+
+<script>
+    Vue.component('mycont', {
+        template: '#tmel',
+        data: function () {
+            return {
+                da: '不错啊！'
+            }
+        }
+    })
+
+    Vue.component('login', {
+        template: '#log'
+    })
+    Vue.component('reges', {
+        template: '#reg'
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                flag: false,
+                msg: "hahah "
+            }
+        },
+        methods: {},
+        // components: {
+        //     login:{
+        //         template:'#tmel1',
+        //         data:function(){
+        //             return {
+        //                 da:'今天天气真的很好哟'
+        //             }
+        //         }
+        //     }
+
+        // }
+
+    });
+
+
+</script>
+
+
+</body>
+</html>

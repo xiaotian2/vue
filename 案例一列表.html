@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>anli</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <label>
+        <input type="text" v-model="id">
+    </label>
+    <label>
+        <input type="text" v-model="name" @keyUp.f2="add">
+    </label>
+    <input type="button" value="添加" @click="add()">
+    <label>
+        <input type="text" v-model="sarchname" :placeholder="da">
+    </label>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>名字</th>
+            <th>时间</th>
+        </tr>
+        <tr v-for="item in search(sarchname)" :key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.ctime | datefort}}</td>
+            <td><a href="#" @click.v-pre="del(item.id)">删除</a></td>
+
+        </tr>
+    </table>
+
+</div>
+
+<script>
+
+    Vue.filter('datefort', function (tim) {
+        var ti = tim;
+        var y = ti.getFullYear();
+        var m = ti.getMonth() + 1;
+        var d = ti.getDate();
+
+        // return y+'年'+m+'月'+d+'日';
+        return `${y}年${m}月${d}日`;
+
+    })
+
+    // Vue.config.keyCodes.f2 = 113;
+    Vue.config.keyCodes = {
+        f2: 113
+    }
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            sarchname: '',
+            da: "搜索框",
+            list: [{
+                id: 1,
+                name: '宝马',
+                ctime: new Date()
+            }, {
+                id: 2,
+                name: '奔驰',
+                ctime: new Date()
+            }]
+
+        },
+        methods: {
+            add() {
+                console.log("ok")
+                var car = {
+                    id: this.id,
+                    name: this.name,
+                    ctime: new Date()
+                };
+                this.list.push(car);
+                this.id = '';
+                this.name = '';
+            },
+            search(name) {
+                return this.list.filter((ite) = > {
+                    if(ite.name.includes(name)
+            )
+                {
+                    console.log(ite);
+                    return ite;
+                }
+            })
+
+            },
+            del(ids) {
+                // this.list.some((ite,i) => {
+                //     if(ite.id == ids){
+                //         this.list.splice(i,1);
+                //         return true;
+
+                //     }
+                // })
+                var ide = this.list.findIndex((iter) = > {
+                    if(iter.id == ids
+            )
+                {
+                    return true;
+                }
+            })
+                console.log(ide);
+                this.list.splice(ide, 1);
+
+            },
+
+
+        }
+    })
+</script>
+
+</body>
+
+</html>

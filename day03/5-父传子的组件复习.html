@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <cpn1 :cmsg='msg' :cuser='user'></cpn1>
+</div>
+
+<template id="tem1">
+    <div>
+        <h1>{{cmsg}}</h1>
+        <ul>
+            <li v-for="(item,index) in cuser">{{item}}</li>
+        </ul>
+    </div>
+</template>
+
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            msg: '今天天气很好哇！',
+            user: {
+                id: 10,
+                name: '关羽',
+                age: 29
+            }
+        },
+        components: {
+            cpn1: {
+                template: '#tem1',
+                methods: {},
+                data() {
+                    return {}
+                },
+                props: {
+                    cmsg: {
+                        type: String,
+                        default: 'hahhahahah'
+                    },
+                    cuser: Object
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

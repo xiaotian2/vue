@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .actity {
+            color: red
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ol>
+
+        <li v-for="(item,index) in movies" :class="{actity:initIndex==index}" @click="changeIndex(index)">
+            {{item}}
+
+        </li>
+    </ol>
+
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            movies: ['海王', '海尔兄弟', '海贼王', '海豹突击队'],
+            initIndex: 0
+        },
+        methods: {
+            changeIndex(index) {
+                this.initIndex = index
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

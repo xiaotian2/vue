@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>
+        <button v-on:click.once="btn1('mmmmmmmmmm')">按钮一</button>
+        <button @click.prevent="btn2">
+            <a href="https://www.baidu.com/">
+                按钮二
+            </a>
+        </button>
+
+        <a href="https://www.baidu.com/">baidu</a>
+        <button>按钮三</button>
+        <button>按钮四</button>
+    </h1>
+</div>
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            msg: 'hhahahha'
+        },
+        methods: {
+            btn1(a) {
+                // console.log(this.msg);
+                console.log(a);
+
+                return this.msg;
+            },
+            btn2() {
+                console.log(this.msg);
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

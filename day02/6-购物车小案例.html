@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div v-if="books.length<1">
+        您的购物车为空！！！
+    </div>
+    <div v-else>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>名字</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item,index) in books" :key="item.id">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price | showprice}}</td>
+                <td>
+                    <button @click="decr(index)">-</button>
+                    {{item.count}}
+                    <button @click="incr(index)">+</button>
+                </td>
+                <td>
+                    <button @click="del(index)">移除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <h1>总价格：{{getTotal | showprice}}</h1>
+    <h1 style="color: red">{{arr}}
+        <button @click="handel">操作</button>
+    </h1>
+</div>
+
+
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            arr: [1, 2, 3, 4, 5],
+            books: [
+                {
+                    id: 1,
+                    name: '数据库1',
+                    price: 100.02,
+                    count: 1
+                },
+                {
+                    id: 2,
+                    name: '数据库2',
+                    price: 100.02,
+                    count: 1
+                },
+                {
+                    id: 3,
+                    name: '数据库3',
+                    price: 100.021,
+                    count: 1
+                },
+                {
+                    id: 4,
+                    name: '数据库4',
+                    price: 100.02,
+                    count: 1
+                }
+            ]
+        },
+        computed: {
+            getTotal() {
+                let total = 0;
+                // for (let i = 0; i < this.books.length; i++) {
+                //     total+=(this.books[i].price)*this.books[i].count
+
+                // }
+                // for (const term of this.books) {
+                //     total+=term.price*term.count
+                // }
+                for (const i in this.books) {
+                    total += this.books[i].price * this.books[i].count
+                }
+                return total;
+            }
+        },
+        filters: {
+            showprice(pr) {
+                return '￥' + pr.toFixed(2)
+            }
+        },
+        methods: {
+            incr(index) {
+                this.books[index].count++
+            },
+            decr(index) {
+                if (this.books[index].count > 0) {
+                    this.books[index].count--
+
+                }
+            },
+            del(i) {
+                this.books.splice(i, 1);
+
+            },
+            handel() {
+                //filer(过滤)
+                //有一个参数是回调函数
+                //回调函数中的参数是数组中的当前元素
+                //返回一个boolern
+                // this.arr = this.arr.filter(function(term){
+                //     return term<4
+                // })
+
+                // return this.arr
+
+                //map(映射)
+                //map(回调函数（当前元素）)
+                //返回一个数组元素
+                // this.arr = this.arr.map(function(term){
+                //     return term*2
+                // })
+                // return this.arr
+
+                //reduce（参数一，参数二）
+                //参数一：回调函数（前一个值,当前数组元素值）
+                //参数二：默认初始值(前一个值)
+                let tol = this.arr.reduce(function (preVue, term) {
+                    return preVue + term
+                }, 0)
+                this.arr.push(tol)
+                console.log(tol)
+                return this.arr
+
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

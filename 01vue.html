@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue01</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+<div id="div">
+    <input type="button" value="浪起来" v-on:click="lang">
+    <input type="button" value="稳住" v-on:click="ting">
+    <h4 v-html="msg"></h4> <br>
+    <input type="text" v-model="msg">
+</div>
+
+<script>
+    var VM = new Vue({
+        el: '#div',
+        data: {
+            msg: "~~稳住，别浪，我们会赢得！",
+            ids: null
+        },
+        methods: {
+            lang() {
+                if (this.ids != null) return;
+
+                this.ids = setInterval(() = > {
+
+                    var start = this.msg.substring(0, 1);
+                var end = this.msg.substring(1);
+                this.msg = end + start;
+
+            },
+                400
+            )
+                ;
+
+
+            },
+            ting() {
+                clearInterval(this.ids);
+                this.ids = null;
+
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
